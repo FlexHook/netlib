@@ -24,7 +24,7 @@
 - `BOT_TOKEN` 	Telegram机器人Token https://t.me/BotFather 创建bot后获取
 - `CHAT_ID`     Telegram 聊天ID https://t.me/laowang_serv00_bot 发送 /start 获取
 	    
-4. GitHub Actions 初始手动执行检查是否有配置错误，脚本会自动每60天执行一次,可手动执行
+4. GitHub Actions 初始手动执行检查是否有配置错误，脚本会自动每10天执行一次,可手动执行
 
 ### 注意事项
 1. 确保 Netlib 账户密码正确
