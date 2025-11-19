@@ -3,8 +3,6 @@ name: Netlib Keepalive
 on:
   push:
     branches: [ main ]
-  pull_request:
-    branches: [ main ]
   schedule:
     - cron: '*/5 * * * *'  # 每30天运行一次（时间早上8点）
   workflow_dispatch:  # 允许手动运行
