@@ -6,7 +6,7 @@ const chatId = process.env.CHAT_ID;
 const accounts = process.env.ACCOUNTS;
 
 if (!accounts) {
-  console.log('❌ 未配置账号1');
+  console.log('❌ 未配置账号');
   process.exit(1);
 }
 
