@@ -6,6 +6,7 @@ on:
     paths:
       - ".github/workflows/**"
       - "package.json"
+      - "login.js"
   schedule:
     - cron: '*/15 * * * *'  # 每30天运行一次（时间早上8点）
   workflow_dispatch:  # 允许手动运行
