@@ -103,7 +103,7 @@ async function main() {
   const successCount = results.filter(r => r.success).length;
   const totalCount = results.length;
 
-  let summaryMessage = `📊 登录汇总: ${successCount}/${totalCount} 个账号成功\n\n`;
+  let summaryMessage = `\n\n\n📊 登录汇总: ${successCount}/${totalCount} 个账号成功\n`;
 
   results.forEach(result => {
     summaryMessage += `${result.message}\n`;
@@ -111,7 +111,7 @@ async function main() {
 
   console.log(summaryMessage);
 
-  console.log('\n✅ 所有账号处理完成！');
+  console.log('✅ 所有账号处理完成！');
 }
 
 main().catch(console.error);
