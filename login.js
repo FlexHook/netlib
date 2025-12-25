@@ -1,6 +1,8 @@
 const axios = require('axios');
 const { chromium } = require('playwright');
 
+const token = process.env.BOT_TOKEN;
+const chatId = process.env.CHAT_ID;
 const accounts = process.env.ACCOUNTS;
 
 if (!accounts) {
@@ -17,6 +19,26 @@ const accountList = accounts.split(/[,;]/).map(account => {
 if (accountList.length === 0) {
   console.log('❌ 账号格式错误，应为 username1:password1,username2:password2');
   process.exit(1);
+}
+
+async function sendTelegram(message) {
+  if (!token || !chatId) return;
+
+  const now = new Date();
+  const hkTime = new Date(now.getTime() + (8 * 60 * 60 * 1000));
+  const timeStr = hkTime.toISOString().replace('T', ' ').substr(0, 19) + " HKT";
+
+  const fullMessage = `🎉 Netlib 登录通知\n\n登录时间：${timeStr}\n\n${message}`;
+
+  try {
+    await axios.post(`https://api.telegram.org/bot${token}/sendMessage`, {
+      chat_id: chatId,
+      text: fullMessage
+    }, { timeout: 10000 });
+    console.log('✅ Telegram 通知发送成功');
+  } catch (e) {
+    console.log('⚠️ Telegram 发送失败');
+  }
 }
 
 async function loginWithAccount(user, pass) {
@@ -103,15 +125,15 @@ async function main() {
   const successCount = results.filter(r => r.success).length;
   const totalCount = results.length;
 
-  let summaryMessage = `\n\n\n📊 登录汇总: ${successCount}/${totalCount} 个账号成功\n`;
+  let summaryMessage = `📊 登录汇总: ${successCount}/${totalCount} 个账号成功\n\n`;
 
   results.forEach(result => {
     summaryMessage += `${result.message}\n`;
   });
 
-  console.log(summaryMessage);
+  await sendTelegram(summaryMessage);
 
-  console.log('✅ 所有账号处理完成！');
+  console.log('\n✅ 所有账号处理完成！');
 }
 
 main().catch(console.error);
